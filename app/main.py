@@ -3,6 +3,7 @@
 from app.database.session import get_db
 from app.database.db import Base, engine
 from app.models.user import User
+from app.models.post import Post
 from app.crud.user_crud import (
     create_user, 
     get_user_by_id, 
@@ -44,3 +45,24 @@ print("Deleted:", delete_result)
 
 print("Running query examples...")
 run_query_examples(db)
+
+print("Testing Relationships...")
+
+# Create a user
+user = User(name="User2", email="user1@gmail.com")
+db.add(user)
+db.commit()
+db.refresh(user)
+
+# Create 2 posts for the user in bulk
+post1 = Post(title="user2-Post1", user_id=user.id)
+post2 = Post(title="User2-Post2", user_id=user.id)
+db.add_all([post1, post2])
+db.commit()
+
+
+# Read posts of user
+print("User posts:", [p.title for p in user.posts])
+
+# Read user of post
+print("Post1 user:", post1.user.name)
