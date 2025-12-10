@@ -10,6 +10,8 @@ from app.crud.user_crud import (
     update_user, 
     delete_user
 )
+from app.crud.query_examples import run_query_examples
+
 
 print("Creating database tables...")
 Base.metadata.create_all(bind=engine)
@@ -38,3 +40,7 @@ for u in get_all_users(db):
 print("Deleting user...")
 delete_result = delete_user(db, 111)
 print("Deleted:", delete_result)    
+
+
+print("Running query examples...")
+run_query_examples(db)
