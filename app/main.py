@@ -4,6 +4,7 @@ from app.database.session import get_db
 from app.database.db import Base, engine
 from app.models.user import User
 from app.models.post import Post
+from app.models.profile import Profile
 from app.crud.user_crud import (
     create_user, 
     get_user_by_id, 
