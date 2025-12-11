@@ -14,11 +14,16 @@ from app.crud.user_crud import (
 )
 from app.crud.query_examples import run_query_examples
 from app.crud.relationship_loading_examples import test_loading_strategies
+from app.crud.advanced_queries import (
+    demo_joins, 
+    demo_group_by, 
+    demo_aliasing 
+)
 
 
 
 
-print("Creating database tables...")
+print("\nCreating database tables...")
 Base.metadata.create_all(bind=engine)
 print("Database tables created.")
 
@@ -26,32 +31,32 @@ print("Database tables created.")
 db = get_db()
 
 
-print("Creating user1...")
+print("\nCreating user1...")
 user = create_user(db, name="User1", email="user1@gmail.com")
 print("Created User1-Details:", user.id, user.name, user.email)
 
-print("Updating user1 name...")
+print("\nUpdating user1 name...")
 updated = update_user(db, user.id, name="User1 Updated")
 print("Updated-User1-Details:", updated.id, updated.name)
 
-print("Fetching user by ID...")
+print("\nFetching user by ID...")
 user_from_db = get_user_by_id(db, 1)
 print("Fetched:", user_from_db.id, user_from_db.name)
 
-print("All users-details:")
+print("\nAll users-details:")
 for u in get_all_users(db):
     print(u.id, u.name, u.email)
 
-print("Deleting User-ID: 1000...")
+print("\nDeleting User-ID: 1000...")
 delete_result = delete_user(db, 1000)
 print("Deleted-User-ID: 1000 - Status:", delete_result)    
 
 
-print("Running query examples like filter/filterby/orderby etc ...")
+print("\nRunning query examples like filter/filterby/orderby etc ...")
 run_query_examples(db)
 
 
-print("Testing and dumping data into Relationships table...")
+print("\nTesting and dumping data into Relationships table...")
 
 # Create a user2
 user = User(name="User2", email="user2@gmail.com")
@@ -68,18 +73,18 @@ db.commit()
 
 # Read all posts of user2
 # here lazy loading is used by default and sql uqery will be fired only when we access user.posts
-print("Reading User2 all posts via lazy loading:", [p.title for p in user.posts])
+print("\nReading User2 all posts via lazy loading:", [p.title for p in user.posts])
 
 # printing user2-name of post1 only
 # here lazy loading is used by default and sql uqery will be fired only when we access user.posts
-print("Post1 User2-Full-Name:", post1.user.name)
+print("\mPost1 User2-Full-Name:", post1.user.name)
 
 
-print("Printing all loading strategies...")
+print("\nPrinting all loading strategies...")
 test_loading_strategies(db)
 
 
-print("Testing cascade concept")
+print("\nTesting cascade concept")
 
 # Creating a user3 with 2 posts using cascade
 user = User(name="User3", email="user3@gmail.com")
@@ -94,7 +99,10 @@ db.delete(user)
 db.commit()
 print("User3 deleted, Posts should be deleted automatically due to cascade delete")
 
-
+print("\nDemonstrating advanced queries - Joins, Group By, Aliasing...")
+demo_joins(db)
+demo_group_by(db)
+demo_aliasing(db)
 
 
 
