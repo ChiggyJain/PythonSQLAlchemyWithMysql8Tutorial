@@ -1,3 +1,1 @@
-This repository is a practical end-to-end learning project for mastering SQLAlchemy ORM (Python 3.12) with MySQL 8, covering everything from fundamentals to advanced concepts.
-It includes structured modules, real-world CRUD layers, relationship modeling, loading strategies, and optimized query patterns.
-I am continuously adding new examples as I deepen my expertise in Python backend architecture, FastAPI, SQLAlchemy, and modern database practices.
+This repository showcases my complete hands-on learning of SQLAlchemy ORM with MySQL8, from fundamentals to production-ready async patterns. I practiced models, relationships, advanced queries, sessions, transactions, performance tuning, raw SQL, async engine, and FastAPI integration. This demonstrates strong backend capability with SQLAlchemy and real database problem-solving skills.
