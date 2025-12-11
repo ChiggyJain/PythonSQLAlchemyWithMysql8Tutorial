@@ -11,7 +11,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     # parent -> child relationship established
-    posts = relationship("Post", back_populates="user", cascade="all,delete")
+    posts = relationship("Post", back_populates="user", cascade="all,delete,delete-orphan")
     # means ONE profile per user
     profile = relationship("Profile", back_populates="user", uselist=False)
     

@@ -77,3 +77,31 @@ print("Post1 User2-Full-Name:", post1.user.name)
 
 print("Printing all loading strategies...")
 test_loading_strategies(db)
+
+
+print("Testing cascade concept")
+
+# Creating a user3 with 2 posts using cascade
+user = User(name="User3", email="user3@gmail.com")
+post1 = Post(title="User3-Post1")
+post2 = Post(title="User3-Post2")
+user.posts = [post1, post2]
+db.add(user)
+db.commit()
+print("User3 with 2 Posts created")
+
+db.delete(user)
+db.commit()
+print("User3 deleted, Posts should be deleted automatically due to cascade delete")
+
+
+
+
+
+
+
+
+
+
+
+
