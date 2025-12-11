@@ -15,7 +15,8 @@ DATABASE_URL = "mysql+pymysql://c:Dharmilal%407186@localhost:3306/sqlalchemy_tut
 engine = create_engine(
     DATABASE_URL, 
     # printing all the generated SQL to the console/terminal
-    echo=True, 
+    # echo=True, 
+    echo = False,
     future=True
 )
 
