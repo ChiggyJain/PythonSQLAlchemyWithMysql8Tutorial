@@ -78,7 +78,7 @@ print("\nReading User2 all posts via lazy loading:", [p.title for p in user.post
 
 # printing user2-name of post1 only
 # here lazy loading is used by default and sql uqery will be fired only when we access user.posts
-print("\mPost1 User2-Full-Name:", post1.user.name)
+print("\nPost1 User2-Full-Name:", post1.user.name)
 
 
 print("\nPrinting all loading strategies...")

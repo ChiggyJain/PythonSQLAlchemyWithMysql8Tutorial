@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, Integer, String, Date, Boolean,
+    Column, Integer, String, Date, Boolean, DateTime,
     Enum, CheckConstraint, UniqueConstraint, Index
 )
 from sqlalchemy.orm import relationship
@@ -16,7 +16,7 @@ class Student(Base):
     gender = Column(Enum("male", "female", "other", name="gender_enum"))
     age = Column(Integer)
     fees = Column(Integer, server_default="0")
-    admission_date = Column(Date, server_default=func.current_date())
+    admission_date = Column(DateTime, server_default=func.now())
 
     __table_args__ = (
         CheckConstraint('age >= 1 AND age <= 120', name="check_age"),
