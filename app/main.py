@@ -22,10 +22,12 @@ from app.crud.advanced_queries import (
 )
 from app.api.users import router as users_router
 from app.db.database import async_engine, async_Base
+from app.db.models import AsyncUser
 
 
 
 app = FastAPI(title="Async FastAPI + SQLAlchemy Example")
+
 
 
 
@@ -135,6 +137,7 @@ try:
     print("Added valid student:", s1.name, "Age:", s1.age)
 except Exception as e:
     print("Error (as expected):", e)
+
 
 
 
