@@ -5,6 +5,7 @@ from app.database.db import Base, engine
 from app.models.user import User
 from app.models.post import Post
 from app.models.profile import Profile
+from app.models.student import Student
 from app.crud.user_crud import (
     create_user, 
     get_user_by_id, 
@@ -104,7 +105,31 @@ demo_joins(db)
 demo_group_by(db)
 demo_aliasing(db)
 
+print("\nTesting the constraints and indexes in Student model...")
 
+print("\nAdding a student with valid age...")
+s1 = Student(roll_no=1, name="Chirag", gender="male", age=30)
+db.add(s1)
+db.commit()
+print("Added valid student:", s1.name, "Age:", s1.age)
+
+print("\nAdding a student with invalid age to test CheckConstraint...")
+try:
+    s1 = Student(roll_no=2, name="Chirag", gender="male", age=-2)
+    db.add(s1)
+    db.commit()
+    print("Added valid student:", s1.name, "Age:", s1.age)
+except Exception as e:
+    print("Error (as expected):", e)
+
+print("\nDuplicate roll_no to test UniqueConstraint...")
+try:
+    s1 = Student(roll_no=2, name="Chirag", gender="male", age=20)
+    db.add(s1)
+    db.commit()
+    print("Added valid student:", s1.name, "Age:", s1.age)
+except Exception as e:
+    print("Error (as expected):", e)
 
 
 
