@@ -5,18 +5,18 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 DATABASE_URL = "mysql+asyncmy://c:Dharmilal%407186@localhost/sqlalchemy_tutorial"
 
-engine = create_async_engine(
+async_engine = create_async_engine(
     DATABASE_URL,
     echo=False,
 )
 
 AsyncSessionLocal = sessionmaker(
-    bind=engine,
+    bind=async_engine,
     class_=AsyncSession,
     expire_on_commit=False,
 )
 
-Base = declarative_base()
+async_Base = declarative_base()
 
 async def get_async_db():
     async with AsyncSessionLocal() as session:

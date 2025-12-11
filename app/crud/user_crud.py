@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.models import User as asyncUser
+from app.db.models import AsyncUser
 from app.schemas.user_schema import UserCreate
 
 
@@ -51,7 +51,7 @@ def delete_user(db: Session, user_id: int):
     
 
 async def create_user_async(db: AsyncSession, user: UserCreate):
-    db_user = asyncUser(name=user.name, email=user.email)
+    db_user = AsyncUser(name=user.name, email=user.email)
     # stage object in session
     db.add(db_user)
     # send SQL INSERT to DB
@@ -61,6 +61,6 @@ async def create_user_async(db: AsyncSession, user: UserCreate):
     return db_user    
 
 async def get_user_by_id_async(db: AsyncSession, user_id: int):
-    result = await db.execute(select(asyncUser).filter(asyncUser.id == user_id))
+    result = await db.execute(select(AsyncUser).filter(AsyncUser.id == user_id))
     return result.scalars().first()
     

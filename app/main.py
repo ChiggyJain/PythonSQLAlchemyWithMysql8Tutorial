@@ -1,5 +1,5 @@
 
-
+from fastapi import FastAPI
 from app.database.session import get_db
 from app.database.db import Base, engine
 from app.models.user import User
@@ -20,7 +20,12 @@ from app.crud.advanced_queries import (
     demo_group_by, 
     demo_aliasing 
 )
+from app.api.users import router as users_router
+from app.db.database import async_engine, async_Base
 
+
+
+app = FastAPI(title="Async FastAPI + SQLAlchemy Example")
 
 
 
@@ -134,7 +139,13 @@ except Exception as e:
 
 
 
+# Create tables on startup
+@app.on_event("startup")
+async def startup():
+    async with async_engine.begin() as conn:
+        await conn.run_sync(async_Base.metadata.create_all)
 
+app.include_router(users_router, prefix="/users")
 
 
 
